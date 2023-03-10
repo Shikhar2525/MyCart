@@ -91,8 +91,8 @@ function Home() {
         getAllFilterValues={(value) => {
           setFilterValues(value);
         }}
-        clearFilters={()=>{
-            setFilterValues({} as FilterValuesProps)
+        clearFilters={() => {
+          setFilterValues({} as FilterValuesProps);
         }}
       />
       <Grid container sx={{ flexDirection: { xs: "column", md: "row" } }}>
@@ -118,7 +118,7 @@ function Home() {
           </Alert>
         )}
       </Grid>
-      <Stack spacing={2}>
+      <Stack spacing={2} sx={{bottom:0,position:"sticky",float:'center',backgroundColor:'#f0f2f5',opacity:'0.9'}} >
         <Pagination
           count={Math.ceil(numberOfPages / 10)}
           size="large"
@@ -130,7 +130,7 @@ function Home() {
             });
             setPage(value);
           }}
-          sx={{ margin: "auto", marginTop: 1, marginBottom: 3 }}
+          sx={{ margin: "auto", marginTop: 1, marginBottom: 2 }}
         />
       </Stack>
     </div>
