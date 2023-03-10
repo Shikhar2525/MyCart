@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../ProductCard/ProductCard";
 import Grid from "@mui/material/Grid";
-import styles from "../Home/Home.module.css";
 import NavBar from "../NavBar/NavBar";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
@@ -9,10 +8,10 @@ import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import axios from "axios";
 import { ProductCardProps } from "../ProductCard/ProductCard.type";
 import CustomFilter from "../CustomFilter/CustomFilter";
 import { FilterValuesProps } from "../CustomFilter/CustomFilter.type";
+import { randomInt } from "crypto";
 
 function Home() {
   const [searchProductTitle, setSearchProductTitle] = useState("");
@@ -20,15 +19,18 @@ function Home() {
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [filterValues, setFilterValues] = useState({} as FilterValuesProps);
-  const [newValues, setNewValues] = useState([{} as ProductCardProps]);
 
   const getProducts = async () => {
-    const result = await axios.get(
-      `http://localhost:3001/products?_page=${page}`
-    );
-    setProducts(result.data);
-    const allResult = await axios.get(`http://localhost:3001/products`);
-    setNumberOfPages(allResult.data.length);
+    const result = await fetch(`http://localhost:3001/products?_page=${page}`)
+      .then((response) => response.json())
+      .then((data) => setProducts(data));
+
+    const allResult = await fetch(`http://localhost:3001/products`)
+      .then((response) => response.json())
+      .then((data) => {
+        return data;
+      });
+    setNumberOfPages(allResult.length);
   };
 
   const filterProducts = () => {
@@ -69,7 +71,7 @@ function Home() {
     return filterProducts().length === 0 ? searchProduct() : filterProducts();
   };
   return (
-    <div>
+    <div data-testid="home">
       <NavBar searchProductTitle={(value) => setSearchProductTitle(value)} />
       <Breadcrumbs aria-label="breadcrumb" sx={{ margin: 3 }}>
         <Link underline="hover" color="inherit" href="/">
@@ -97,8 +99,8 @@ function Home() {
       />
       <Grid container sx={{ flexDirection: { xs: "column", md: "row" } }}>
         {searchProduct().length > 0 ? (
-          newProducts().map((product) => (
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+          newProducts().map((product,index) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
               <ProductCard
                 price={product.price}
                 title={product.title}
@@ -118,8 +120,18 @@ function Home() {
           </Alert>
         )}
       </Grid>
-      <Stack spacing={2} sx={{bottom:0,position:"sticky",float:'center',backgroundColor:'#f0f2f5',opacity:'0.9'}} >
+      <Stack
+        spacing={2}
+        sx={{
+          bottom: 0,
+          position: "sticky",
+          float: "center",
+          backgroundColor: "#f0f2f5",
+          opacity: "0.9",
+        }}
+      >
         <Pagination
+          data-testid="pagination"
           count={Math.ceil(numberOfPages / 10)}
           size="large"
           onChange={(event, value) => {

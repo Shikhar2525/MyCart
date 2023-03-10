@@ -11,9 +11,12 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
-import { CustomFilterPropType,FilterValuesProps } from "./CustomFilter.type";
+import { CustomFilterPropType, FilterValuesProps } from "./CustomFilter.type";
 
-function CustomFilter({getAllFilterValues,clearFilters}:CustomFilterPropType) {
+function CustomFilter({
+  getAllFilterValues,
+  clearFilters,
+}: CustomFilterPropType) {
   const [brand, setBrand] = useState("");
   const [ram, setRam] = useState("");
   const [screenSize, setScreenSize] = useState("");
@@ -21,7 +24,7 @@ function CustomFilter({getAllFilterValues,clearFilters}:CustomFilterPropType) {
   return (
     <div>
       <Container maxWidth="sm" sx={{ float: "left" }}>
-        <Accordion>
+        <Accordion data-testid="filter-accordion">
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -37,7 +40,7 @@ function CustomFilter({getAllFilterValues,clearFilters}:CustomFilterPropType) {
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  data-testid="Manufacturer"
                   value={brand}
                   label="Brand"
                   onChange={(event) => setBrand(event.target.value)}
@@ -96,21 +99,41 @@ function CustomFilter({getAllFilterValues,clearFilters}:CustomFilterPropType) {
                   label="Brand"
                   onChange={(event) => setRating(event.target.value)}
                 >
-                  <MenuItem value="1">1 <Rating name="read-only" value={1} readOnly /></MenuItem>
-                  <MenuItem value="2">2 <Rating name="read-only" value={2} readOnly /></MenuItem>
-                  <MenuItem value="3">3 <Rating name="read-only" value={3} readOnly /></MenuItem>
-                  <MenuItem value="4">4 <Rating name="read-only" value={4} readOnly /></MenuItem>
-                  <MenuItem value="5">5 <Rating name="read-only" value={5} readOnly /></MenuItem>
+                  <MenuItem value="1">
+                    1 <Rating name="read-only" value={1} readOnly />
+                  </MenuItem>
+                  <MenuItem value="2">
+                    2 <Rating name="read-only" value={2} readOnly />
+                  </MenuItem>
+                  <MenuItem value="3">
+                    3 <Rating name="read-only" value={3} readOnly />
+                  </MenuItem>
+                  <MenuItem value="4">
+                    4 <Rating name="read-only" value={4} readOnly />
+                  </MenuItem>
+                  <MenuItem value="5">
+                    5 <Rating name="read-only" value={5} readOnly />
+                  </MenuItem>
                 </Select>
               </FormControl>
-              <Button variant="outlined" color="success" sx={{ margin: 2 }} onClick={
-                ()=>{
-                    getAllFilterValues({brand,ram,screenSize,rating}as unknown as FilterValuesProps);
-                }
-              }>
+              <Button
+                data-testid="apply-filter"
+                variant="outlined"
+                color="success"
+                sx={{ margin: 2 }}
+                onClick={() => {
+                  getAllFilterValues({
+                    brand,
+                    ram,
+                    screenSize,
+                    rating,
+                  } as unknown as FilterValuesProps);
+                }}
+              >
                 Apply Filter
               </Button>
               <Button
+                data-testid="clear-filter"
                 variant="outlined"
                 color="error"
                 sx={{ margin: 2 }}
@@ -119,7 +142,7 @@ function CustomFilter({getAllFilterValues,clearFilters}:CustomFilterPropType) {
                   setRam("");
                   setRating("");
                   setScreenSize("");
-                  clearFilters()
+                  clearFilters();
                 }}
               >
                 Clear
@@ -131,6 +154,5 @@ function CustomFilter({getAllFilterValues,clearFilters}:CustomFilterPropType) {
     </div>
   );
 }
-
 
 export default CustomFilter;
