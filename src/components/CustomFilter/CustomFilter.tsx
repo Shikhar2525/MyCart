@@ -12,10 +12,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
 import { CustomFilterPropType, FilterValuesProps } from "./CustomFilter.type";
+import Alert from "@mui/material/Alert";
 
 function CustomFilter({
   getAllFilterValues,
   clearFilters,
+  filteredProducts
 }: CustomFilterPropType) {
   const [brand, setBrand] = useState("");
   const [ram, setRam] = useState("");
@@ -39,6 +41,7 @@ function CustomFilter({
                   Manufacturer
                 </InputLabel>
                 <Select
+                  name="Manufacturer"
                   labelId="demo-simple-select-label"
                   data-testid="Manufacturer"
                   value={brand}
@@ -46,7 +49,7 @@ function CustomFilter({
                   onChange={(event) => setBrand(event.target.value)}
                 >
                   <MenuItem value="Samsung">Samsung</MenuItem>
-                  <MenuItem value="Google">Google</MenuItem>
+                  <MenuItem data-testid="Google" value="Google" >Google</MenuItem>
                   <MenuItem value="Apple">Apple</MenuItem>
                   <MenuItem value="ASUS">ASUS</MenuItem>
                   <MenuItem value="OnePlus">OnePlus</MenuItem>
@@ -116,6 +119,7 @@ function CustomFilter({
                   </MenuItem>
                 </Select>
               </FormControl>
+              {filteredProducts.length>0?'':(<Alert severity="error">No item found for current filter, <b>Showing all results</b></Alert>)}
               <Button
                 data-testid="apply-filter"
                 variant="outlined"

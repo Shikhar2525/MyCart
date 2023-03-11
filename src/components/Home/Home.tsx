@@ -11,7 +11,6 @@ import Stack from "@mui/material/Stack";
 import { ProductCardProps } from "../ProductCard/ProductCard.type";
 import CustomFilter from "../CustomFilter/CustomFilter";
 import { FilterValuesProps } from "../CustomFilter/CustomFilter.type";
-import { randomInt } from "crypto";
 
 function Home() {
   const [searchProductTitle, setSearchProductTitle] = useState("");
@@ -35,13 +34,12 @@ function Home() {
 
   const filterProducts = () => {
     const filterdProducts = products.filter((product) => {
-      if (product.brandName === filterValues.brand) {
-        return true;
-      } else if (product.rating?.toString() === filterValues.rating) {
-        return true;
-      } else if (product.screenSize?.toString() === filterValues.screenSize) {
-        return true;
-      } else if (product.ram?.toString() === filterValues.ram) {
+      if (
+        (!filterValues.brand || product.brandName === filterValues.brand) &&
+        (!filterValues.rating || product.rating?.toString() === filterValues.rating) &&
+        (!filterValues.screenSize || product.screenSize?.toString() === filterValues.screenSize) &&
+        (!filterValues.ram || product.ram?.toString() === filterValues.ram)
+      ) {
         return true;
       } else {
         return false;
@@ -90,6 +88,7 @@ function Home() {
         Products {products.length}/{numberOfPages}
       </Typography>
       <CustomFilter
+        filteredProducts={filterProducts()}
         getAllFilterValues={(value) => {
           setFilterValues(value);
         }}
@@ -99,7 +98,7 @@ function Home() {
       />
       <Grid container sx={{ flexDirection: { xs: "column", md: "row" } }}>
         {searchProduct().length > 0 ? (
-          newProducts().map((product,index) => (
+          newProducts().map((product, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
               <ProductCard
                 price={product.price}
@@ -121,6 +120,7 @@ function Home() {
         )}
       </Grid>
       <Stack
+        data-testid="pagination"
         spacing={2}
         sx={{
           bottom: 0,
@@ -131,7 +131,6 @@ function Home() {
         }}
       >
         <Pagination
-          data-testid="pagination"
           count={Math.ceil(numberOfPages / 10)}
           size="large"
           onChange={(event, value) => {

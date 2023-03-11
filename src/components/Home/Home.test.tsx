@@ -13,8 +13,7 @@ import {
 import Home from "./Home";
 import Pagination from "@mui/material/Pagination";
 import userEvent from "@testing-library/user-event";
-import '@testing-library/jest-dom/extend-expect';
-
+import "@testing-library/jest-dom/extend-expect";
 
 describe("Home", () => {
   it("renders without errors", () => {
@@ -22,5 +21,4 @@ describe("Home", () => {
     expect(getByTestId("home")).toBeInTheDocument();
   });
 });
-
 

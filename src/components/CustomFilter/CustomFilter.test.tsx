@@ -1,11 +1,19 @@
 import Button from "@mui/material/Button";
-import { fireEvent, render, within } from "@testing-library/react";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import {
+  fireEvent,
+  getByTestId,
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import CustomFilter from "./CustomFilter";
 
 describe("CustomFilter component", () => {
   it("should render without errors", () => {
     const { getByText } = render(
-      <CustomFilter clearFilters={() => {}} getAllFilterValues={() => {}} />
+      <CustomFilter filteredProducts={[]} clearFilters={() => {}} getAllFilterValues={() => {}} />
     );
     const header = getByText("Filter");
     expect(header).toBeInTheDocument();
@@ -17,6 +25,7 @@ test("clicks on apply filter button", () => {
   const clearFilters = jest.fn();
   const { getByTestId } = render(
     <CustomFilter
+    filteredProducts={[]}
       clearFilters={clearFilters}
       getAllFilterValues={getAllFilterValues}
     />
@@ -31,6 +40,7 @@ test("clicks on clear button", () => {
   const clearFilters = jest.fn();
   const { getByTestId } = render(
     <CustomFilter
+    filteredProducts={[]}
       clearFilters={clearFilters}
       getAllFilterValues={getAllFilterValues}
     />
@@ -39,4 +49,5 @@ test("clicks on clear button", () => {
   fireEvent.click(clearFilterButton);
   expect(clearFilters).toHaveBeenCalled();
 });
+
 

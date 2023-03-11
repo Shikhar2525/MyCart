@@ -1,3 +1,5 @@
+import { ProductCardProps } from "../ProductCard/ProductCard.type";
+
 export interface FilterValuesProps {
   brand: string;
   rating: string;
@@ -7,4 +9,5 @@ export interface FilterValuesProps {
 export interface CustomFilterPropType {
   getAllFilterValues: ({}: FilterValuesProps) => void;
   clearFilters : ()=>void;
+  filteredProducts : ProductCardProps[]
 }
