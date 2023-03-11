@@ -2,18 +2,27 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import {
+  cleanup,
   fireEvent,
+  getByRole,
   getByTestId,
+  getByText,
   render,
   screen,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import CustomFilter from "./CustomFilter";
-
+const getAllFilterValues = jest.fn();
+const clearFilters = jest.fn();
 describe("CustomFilter component", () => {
   it("should render without errors", () => {
     const { getByText } = render(
-      <CustomFilter filteredProducts={[]} clearFilters={() => {}} getAllFilterValues={() => {}} />
+      <CustomFilter
+        filteredProducts={[]}
+        clearFilters={() => {}}
+        getAllFilterValues={() => {}}
+      />
     );
     const header = getByText("Filter");
     expect(header).toBeInTheDocument();
@@ -21,11 +30,9 @@ describe("CustomFilter component", () => {
 });
 
 test("clicks on apply filter button", () => {
-  const getAllFilterValues = jest.fn(); // mock the function passed as a prop to CustomFilter
-  const clearFilters = jest.fn();
   const { getByTestId } = render(
     <CustomFilter
-    filteredProducts={[]}
+      filteredProducts={[]}
       clearFilters={clearFilters}
       getAllFilterValues={getAllFilterValues}
     />
@@ -36,11 +43,9 @@ test("clicks on apply filter button", () => {
 });
 
 test("clicks on clear button", () => {
-  const getAllFilterValues = jest.fn();
-  const clearFilters = jest.fn();
   const { getByTestId } = render(
     <CustomFilter
-    filteredProducts={[]}
+      filteredProducts={[]}
       clearFilters={clearFilters}
       getAllFilterValues={getAllFilterValues}
     />
@@ -50,4 +55,17 @@ test("clicks on clear button", () => {
   expect(clearFilters).toHaveBeenCalled();
 });
 
+describe("Form component", () => {
+  it("should update brand value when select is changed", () => {
+    const {getByTestId} =render(<CustomFilter
+      filteredProducts={[]}
+      clearFilters={clearFilters}
+      getAllFilterValues={getAllFilterValues}
+    />);
 
+
+    expect(getByTestId('Manufacturer')).toBeInTheDocument();
+    
+    
+  });
+});

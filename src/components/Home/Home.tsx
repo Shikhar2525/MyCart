@@ -20,7 +20,7 @@ function Home() {
   const [filterValues, setFilterValues] = useState({} as FilterValuesProps);
 
   const getProducts = async () => {
-    const result = await fetch(`http://localhost:3001/products?_page=${page}`)
+    await fetch(`http://localhost:3001/products?_page=${page}`)
       .then((response) => response.json())
       .then((data) => setProducts(data));
 
@@ -36,8 +36,10 @@ function Home() {
     const filterdProducts = products.filter((product) => {
       if (
         (!filterValues.brand || product.brandName === filterValues.brand) &&
-        (!filterValues.rating || product.rating?.toString() === filterValues.rating) &&
-        (!filterValues.screenSize || product.screenSize?.toString() === filterValues.screenSize) &&
+        (!filterValues.rating ||
+          product.rating?.toString() === filterValues.rating) &&
+        (!filterValues.screenSize ||
+          product.screenSize?.toString() === filterValues.screenSize) &&
         (!filterValues.ram || product.ram?.toString() === filterValues.ram)
       ) {
         return true;
@@ -45,8 +47,6 @@ function Home() {
         return false;
       }
     });
-
-    console.log(filterdProducts);
     return filterdProducts;
   };
 
@@ -66,8 +66,10 @@ function Home() {
     });
   };
   const newProducts = () => {
-    return filterProducts().length === 0 ? searchProduct() : filterProducts();
+    let n = page === Math.ceil(numberOfPages / 10) ? numberOfPages % 10 : 10;
+    return filterProducts().length === n ? searchProduct() : filterProducts();
   };
+
   return (
     <div data-testid="home">
       <NavBar searchProductTitle={(value) => setSearchProductTitle(value)} />

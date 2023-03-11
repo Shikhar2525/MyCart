@@ -7,8 +7,8 @@ import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+import { Select } from "@mui/material";
+import { MenuItem } from "@mui/material";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
 import { CustomFilterPropType, FilterValuesProps } from "./CustomFilter.type";
@@ -17,7 +17,7 @@ import Alert from "@mui/material/Alert";
 function CustomFilter({
   getAllFilterValues,
   clearFilters,
-  filteredProducts
+  filteredProducts,
 }: CustomFilterPropType) {
   const [brand, setBrand] = useState("");
   const [ram, setRam] = useState("");
@@ -48,8 +48,10 @@ function CustomFilter({
                   label="Brand"
                   onChange={(event) => setBrand(event.target.value)}
                 >
-                  <MenuItem value="Samsung">Samsung</MenuItem>
-                  <MenuItem data-testid="Google" value="Google" >Google</MenuItem>
+                  <MenuItem data-testid="Samsung" value="Samsung">
+                    Samsung
+                  </MenuItem>
+                  <MenuItem value="Google">Google</MenuItem>
                   <MenuItem value="Apple">Apple</MenuItem>
                   <MenuItem value="ASUS">ASUS</MenuItem>
                   <MenuItem value="OnePlus">OnePlus</MenuItem>
@@ -119,7 +121,11 @@ function CustomFilter({
                   </MenuItem>
                 </Select>
               </FormControl>
-              {filteredProducts.length>0?'':(<Alert severity="error">No item found for current filter, <b>Showing all results</b></Alert>)}
+              {filteredProducts.length > 0 ? (
+                ""
+              ) : (
+                <Alert severity="error">No item found for current filter</Alert>
+              )}
               <Button
                 data-testid="apply-filter"
                 variant="outlined"
