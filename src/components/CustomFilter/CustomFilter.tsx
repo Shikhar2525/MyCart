@@ -35,8 +35,7 @@ function CustomFilter({
             <Typography>Filter</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <form>
-              <FormControl sx={{ width: "40%", margin: 2 }}>
+              <FormControl sx={{ width: "40%", margin: 2 }} >
                 <InputLabel id="demo-simple-select-label">
                   Manufacturer
                 </InputLabel>
@@ -48,35 +47,36 @@ function CustomFilter({
                   label="Brand"
                   onChange={(event) => setBrand(event.target.value)}
                 >
-                  <MenuItem data-testid="Samsung" value="Samsung">
+                  <MenuItem key={1} data-testid="Samsung" value="Samsung">
                     Samsung
                   </MenuItem>
-                  <MenuItem value="Google">Google</MenuItem>
-                  <MenuItem value="Apple">Apple</MenuItem>
-                  <MenuItem value="ASUS">ASUS</MenuItem>
-                  <MenuItem value="OnePlus">OnePlus</MenuItem>
-                  <MenuItem value="Xiaomi">Xiaomi</MenuItem>
-                  <MenuItem value="Realme">Realme</MenuItem>
-                </Select>
+                  <MenuItem key={2} value="Google">Google</MenuItem>
+                  <MenuItem key={3} value="Apple">Apple</MenuItem>
+                  <MenuItem key={4} value="ASUS">ASUS</MenuItem>
+                  <MenuItem key={5} value="OnePlus">OnePlus</MenuItem>
+                  <MenuItem key={6} value="Xiaomi">Xiaomi</MenuItem>
+                  <MenuItem key={7} value="Realme">Realme</MenuItem>
+                </Select> 
               </FormControl>
               <FormControl sx={{ width: "40%", margin: 2 }}>
                 <InputLabel id="demo-simple-select-label">
                   Ram Size (GB)
                 </InputLabel>
                 <Select
+                data-testid='ram'
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={ram}
+                   value={ram}
                   label="Brand"
-                  onChange={(event) => setRam(event.target.value)}
+                  onChange={(event) => setRam(event.target. value)}
                 >
-                  <MenuItem value="1">1</MenuItem>
-                  <MenuItem value="2">2</MenuItem>
-                  <MenuItem value="3">3</MenuItem>
-                  <MenuItem value="4">4</MenuItem>
-                  <MenuItem value="6">6</MenuItem>
-                  <MenuItem value="8">8</MenuItem>
-                  <MenuItem value="12">12</MenuItem>
+                  <MenuItem  value="1">1</MenuItem>
+                  <MenuItem  value="2">2</MenuItem>
+                  <MenuItem  value="3">3</MenuItem>
+                  <MenuItem  value="4">4</MenuItem>
+                  <MenuItem  value="6">6</MenuItem>
+                  <MenuItem  value="8">8</MenuItem>
+                  <MenuItem  value="12">12</MenuItem>
                 </Select>
               </FormControl>
               <FormControl sx={{ width: "40%", margin: 2 }}>
@@ -84,25 +84,27 @@ function CustomFilter({
                   Screen Size
                 </InputLabel>
                 <Select
+                data-testid='screensize'
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={screenSize}
+                   value={screenSize}
                   label="Brand"
-                  onChange={(event) => setScreenSize(event.target.value)}
+                  onChange={(event) => setScreenSize(event.target. value)}
                 >
-                  <MenuItem value="5">5</MenuItem>
-                  <MenuItem value="6">6</MenuItem>
-                  <MenuItem value="7">7</MenuItem>
+                  <MenuItem  value="5">5</MenuItem>
+                  <MenuItem  value="6">6</MenuItem>
+                  <MenuItem  value="7">7</MenuItem>
                 </Select>
               </FormControl>
               <FormControl sx={{ width: "40%", margin: 2 }}>
                 <InputLabel id="demo-simple-select-label">Rating</InputLabel>
                 <Select
+                data-testid='rating'
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={rating}
+                   value={rating}
                   label="Brand"
-                  onChange={(event) => setRating(event.target.value)}
+                  onChange={(event) => setRating(event.target. value)}
                 >
                   <MenuItem value="1">
                     1 <Rating name="read-only" value={1} readOnly />
@@ -157,7 +159,7 @@ function CustomFilter({
               >
                 Clear
               </Button>
-            </form>
+         
           </AccordionDetails>
         </Accordion>
       </Container>

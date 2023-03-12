@@ -59,7 +59,7 @@ function Home() {
       if (searchProductTitle === "") {
         return product;
       } else if (
-        product.title.toLowerCase().includes(searchProductTitle.toLowerCase())
+        product.title?.toLowerCase().includes(searchProductTitle.toLowerCase())
       ) {
         return product;
       }
@@ -122,7 +122,6 @@ function Home() {
         )}
       </Grid>
       <Stack
-        data-testid="pagination"
         spacing={2}
         sx={{
           bottom: 0,
@@ -133,6 +132,7 @@ function Home() {
         }}
       >
         <Pagination
+          data-testid="pagination"
           count={Math.ceil(numberOfPages / 10)}
           size="large"
           onChange={(event, value) => {

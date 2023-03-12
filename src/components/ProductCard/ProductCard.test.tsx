@@ -4,7 +4,7 @@ import ProductCard from "./ProductCard";
 import { ProductCardProps } from "./ProductCard.type";
 
 describe("ProductCard", () => {
-  it("renders with the correct props", () => {
+  test("renders with the correct props", () => {
     const props = {
       title: "Test Product",
       brandName: "Test Brand",
