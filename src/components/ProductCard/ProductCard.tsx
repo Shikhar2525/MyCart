@@ -24,7 +24,7 @@ export default function ProductCard({
 }: ProductCardProps) {
   return (
     <div style={{ margin: "5%" }}>
-      <Card sx={{ maxWidth: 345, maxHeight: "100vh", overflow: "auto" }} elevation={12}>
+      <Card sx={{ maxWidth: 345, maxHeight: "100vh" }} elevation={12}>
         <CardMedia
           sx={{
             objectFit: "scale-down",
@@ -70,20 +70,9 @@ export default function ProductCard({
             className={styles.buttons}
             variant="contained"
             color="warning"
-            sx={{ width: "10rem" }}
+            sx={{ width: "8rem" }}
           >
             Add to Cart
-            <IconButton
-              sx={{
-                color: "white",
-                width: "10px",
-                height: "10px",
-                marginLeft: "10px",
-              }}
-              aria-label="add to shopping cart"
-            >
-              <AddShoppingCartIcon />
-            </IconButton>
           </Button>
         </CardActions>
       </Card>
